@@ -9,9 +9,20 @@ import { clearErrors, login, register } from "../../actions/userAction";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { SanitizeText } from "../../sanitizer/Sanitizer";
-
+import LoginButton from "../../component/loginAuth/authLogin";
+import LogoutButton from "../loginAuth/authLogout";
+import { useAuth0 } from "@auth0/auth0-react";
 const LoginSignup = ({ history, location }) => {
   const dispatch = useDispatch();
+  const { loginWithRedirect, logout, isAuthenticated: isOauth } = useAuth0();
+
+  useEffect(() => {
+    if (isOauth) {
+      setTimeout(() => {
+        logout();
+      }, 20000);
+    }
+  }, [isOauth]);
 
   const { error, loading, isAuthenticated } = useSelector(
     (state) => state.user
@@ -132,6 +143,12 @@ const LoginSignup = ({ history, location }) => {
             </div>
             <Link to="/password/forgot">Forgot Password ?</Link>
             <input type="submit" value="Login" className="loginBtn" />
+            <input
+              type="button"
+              value="Login with Auth0"
+              onClick={() => loginWithRedirect()}
+              className="loginBtn"
+            />
             <Link to="/">
               <span>Login as a guest ?</span>
             </Link>
