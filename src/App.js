@@ -43,6 +43,8 @@ import UpdateBrand from "./component/Admin/EditBrand";
 
 import ProtectedRoute from "./route/ProtectedRoute";
 
+import ContactUs from "./component/contact/contactus";
+
 function App() {
   const { isAuthenticated, user } = useSelector((state) => state.user);
 
@@ -170,6 +172,7 @@ function App() {
           path="/edit/brand/:id"
           component={UpdateBrand}
         />
+        <ProtectedRoute exact path="/contact" component={ContactUs} />
       </Switch>
     </Router>
   );
