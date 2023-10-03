@@ -12,13 +12,12 @@ import DiscountIcon from "@material-ui/icons/LocalOffer";
 import SideBar from "./Sidebar";
 import { NEW_BRAND_RESET } from "../../constans/BrandConstans";
 import { ToastContainer, toast } from "react-toastify";
+import { SanitizeText } from "../../sanitizer/Sanitizer";
 
 const CreateBrand = ({ history }) => {
   const dispatch = useDispatch();
 
-  const { loading, error, success } = useSelector(
-    (state) => state.createBrand
-  );
+  const { loading, error, success } = useSelector((state) => state.createBrand);
 
   const [name, setName] = useState("");
   const [description, setDescription] = useState("");
@@ -79,8 +78,7 @@ const CreateBrand = ({ history }) => {
           <form
             className="createProductForm"
             encType="multipart/form-data"
-            onSubmit={createBrandSubmitHandler}
-          >
+            onSubmit={createBrandSubmitHandler}>
             <h1>Create Brand</h1>
 
             <div>
@@ -90,7 +88,7 @@ const CreateBrand = ({ history }) => {
                 placeholder="Brand Name"
                 required
                 value={name}
-                onChange={(e) => setName(e.target.value)}
+                onChange={(e) => setName(SanitizeText(e.target.value))}
               />
             </div>
 
@@ -101,8 +99,7 @@ const CreateBrand = ({ history }) => {
                 value={description}
                 onChange={(e) => setDescription(e.target.value)}
                 cols="30"
-                rows="1"
-              ></textarea>
+                rows="1"></textarea>
             </div>
 
             <div id="createProductFormFile">
@@ -124,8 +121,7 @@ const CreateBrand = ({ history }) => {
             <Button
               id="createProductBtn"
               type="submit"
-              disabled={loading ? true : false}
-            >
+              disabled={loading ? true : false}>
               Create
             </Button>
           </form>

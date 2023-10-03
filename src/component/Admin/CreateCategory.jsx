@@ -12,6 +12,7 @@ import DiscountIcon from "@material-ui/icons/LocalOffer";
 import SideBar from "./Sidebar";
 import { NEW_CATEGORY_RESET } from "../../constans/CategoryConstans";
 import { ToastContainer, toast } from "react-toastify";
+import { SanitizeText } from "../../sanitizer/Sanitizer";
 
 const CreateCategory = ({ history }) => {
   const dispatch = useDispatch();
@@ -41,11 +42,11 @@ const CreateCategory = ({ history }) => {
   const createCategorySubmitHandler = (e) => {
     e.preventDefault();
 
-    if (description.length < 10 ) {
+    if (description.length < 10) {
       toast.error("Description must be at least 10 characters");
       return;
     }
-    if (name.length < 5 ) {
+    if (name.length < 5) {
       toast.error("name must be at least 5 characters");
       return;
     }
@@ -87,8 +88,7 @@ const CreateCategory = ({ history }) => {
           <form
             className="createProductForm"
             encType="multipart/form-data"
-            onSubmit={createCategorySubmitHandler}
-          >
+            onSubmit={createCategorySubmitHandler}>
             <h1>Create Category</h1>
 
             <div>
@@ -98,7 +98,7 @@ const CreateCategory = ({ history }) => {
                 placeholder="Category Name"
                 required
                 value={name}
-                onChange={(e) => setName(e.target.value)}
+                onChange={(e) => setName(SanitizeText(e.target.value))}
               />
             </div>
 
@@ -109,8 +109,7 @@ const CreateCategory = ({ history }) => {
                 value={description}
                 onChange={(e) => setDescription(e.target.value)}
                 cols="30"
-                rows="1"
-              ></textarea>
+                rows="1"></textarea>
             </div>
 
             <div id="createProductFormFile">
@@ -132,8 +131,7 @@ const CreateCategory = ({ history }) => {
             <Button
               id="createProductBtn"
               type="submit"
-              disabled={loading ? true : false}
-            >
+              disabled={loading ? true : false}>
               Create
             </Button>
           </form>

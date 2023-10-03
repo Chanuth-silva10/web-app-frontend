@@ -6,7 +6,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { clearErrors, loadUser, updateProfile } from "../../actions/userAction";
 import { UPDATE_PROFILE_RESET } from "../../constans/userContans";
 import { ToastContainer, toast } from "react-toastify";
-
+import { SanitizeText } from "../../sanitizer/Sanitizer";
 const EditProfile = ({ history }) => {
   const dispatch = useDispatch();
 
@@ -75,8 +75,7 @@ const EditProfile = ({ history }) => {
             <form
               className="updateProfileForm"
               encType="multipart/form-data"
-              onSubmit={updateProfileSubmit}
-            >
+              onSubmit={updateProfileSubmit}>
               <div className="updateProfileName">
                 <FaceIcon />
                 <input
@@ -85,7 +84,7 @@ const EditProfile = ({ history }) => {
                   required
                   name="name"
                   value={name}
-                  onChange={(e) => setName(e.target.value)}
+                  onChange={(e) => setName(SanitizeText(e.target.value))}
                 />
               </div>
               <div className="updateProfileEmail">
@@ -96,7 +95,7 @@ const EditProfile = ({ history }) => {
                   required
                   name="email"
                   value={email}
-                  onChange={(e) => setEmail(e.target.value)}
+                  onChange={(e) => setEmail(SanitizeText(e.target.value))}
                 />
               </div>
 

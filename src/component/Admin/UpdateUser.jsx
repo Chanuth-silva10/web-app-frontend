@@ -12,6 +12,7 @@ import {
   clearErrors,
 } from "../../actions/userAction";
 import { ToastContainer, toast } from "react-toastify";
+import { SanitizeText } from "../../sanitizer/Sanitizer";
 
 const UpdateUser = ({ history, match }) => {
   const dispatch = useDispatch();
@@ -74,8 +75,7 @@ const UpdateUser = ({ history, match }) => {
         <div className="newProductContainer">
           <form
             className="createProductForm"
-            onSubmit={updateUserSubmitHandler}
-          >
+            onSubmit={updateUserSubmitHandler}>
             <h1>Update User</h1>
 
             <div>
@@ -85,7 +85,7 @@ const UpdateUser = ({ history, match }) => {
                 placeholder="Name"
                 required
                 value={name}
-                onChange={(e) => setName(e.target.value)}
+                onChange={(e) => setName(SanitizeText(e.target.value))}
               />
             </div>
             <div>
@@ -95,7 +95,7 @@ const UpdateUser = ({ history, match }) => {
                 placeholder="Email"
                 required
                 value={email}
-                onChange={(e) => setEmail(e.target.value)}
+                onChange={(e) => setEmail(SanitizeText(e.target.value))}
               />
             </div>
 
@@ -113,8 +113,7 @@ const UpdateUser = ({ history, match }) => {
               type="submit"
               disabled={
                 updateLoading ? true : false || role === "" ? true : false
-              }
-            >
+              }>
               Update
             </Button>
           </form>

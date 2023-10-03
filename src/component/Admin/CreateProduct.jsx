@@ -12,7 +12,7 @@ import DiscountIcon from "@material-ui/icons/LocalOffer";
 import SideBar from "./Sidebar";
 import { NEW_PRODUCT_RESET } from "../../constans/ProductConstans";
 import { ToastContainer, toast } from "react-toastify";
-
+import { SanitizeText } from "../../sanitizer/Sanitizer";
 const CreateProduct = ({ history }) => {
   const dispatch = useDispatch();
 
@@ -90,8 +90,7 @@ const CreateProduct = ({ history }) => {
           <form
             className="createProductForm"
             encType="multipart/form-data"
-            onSubmit={createProductSubmitHandler}
-          >
+            onSubmit={createProductSubmitHandler}>
             <h1>Create Product</h1>
 
             <div>
@@ -101,7 +100,7 @@ const CreateProduct = ({ history }) => {
                 placeholder="Product Name"
                 required
                 value={name}
-                onChange={(e) => setName(e.target.value)}
+                onChange={(e) => setName(SanitizeText(e.target.value))}
               />
             </div>
 
@@ -122,8 +121,7 @@ const CreateProduct = ({ history }) => {
                 value={description}
                 onChange={(e) => setDescription(e.target.value)}
                 cols="30"
-                rows="1"
-              ></textarea>
+                rows="1"></textarea>
             </div>
 
             <div>
@@ -167,8 +165,7 @@ const CreateProduct = ({ history }) => {
             <Button
               id="createProductBtn"
               type="submit"
-              disabled={loading ? true : false}
-            >
+              disabled={loading ? true : false}>
               Create
             </Button>
           </form>

@@ -16,7 +16,7 @@ import AttachMoneyIcon from "@material-ui/icons/AttachMoney";
 import SideBar from "./Sidebar";
 import { UPDATE_BRAND_RESET } from "../../constans/BrandConstans";
 import { ToastContainer, toast } from "react-toastify";
-
+import { SanitizeText } from "../../sanitizer/Sanitizer";
 const UpdateBrand = ({ history, match }) => {
   const dispatch = useDispatch();
 
@@ -61,16 +61,7 @@ const UpdateBrand = ({ history, match }) => {
       history.push("/admin/brands");
       dispatch({ type: UPDATE_BRAND_RESET });
     }
-  }, [
-    dispatch,
-    alert,
-    error,
-    history,
-    isUpdated,
-    brandId,
-    brand,
-    updateError,
-  ]);
+  }, [dispatch, alert, error, history, isUpdated, brandId, brand, updateError]);
 
   const updateProductSubmitHandler = (e) => {
     e.preventDefault();
@@ -115,8 +106,7 @@ const UpdateBrand = ({ history, match }) => {
           <form
             className="createProductForm"
             encType="multipart/form-data"
-            onSubmit={updateProductSubmitHandler}
-          >
+            onSubmit={updateProductSubmitHandler}>
             <h1>Edit Brand</h1>
 
             <div>
@@ -126,7 +116,7 @@ const UpdateBrand = ({ history, match }) => {
                 placeholder="Brand Name"
                 required
                 value={name}
-                onChange={(e) => setName(e.target.value)}
+                onChange={(e) => setName(SanitizeText(e.target.value))}
               />
             </div>
 
@@ -138,8 +128,7 @@ const UpdateBrand = ({ history, match }) => {
                 value={description}
                 onChange={(e) => setDescription(e.target.value)}
                 cols="30"
-                rows="1"
-              ></textarea>
+                rows="1"></textarea>
             </div>
 
             <div id="createProductFormFile">
@@ -168,8 +157,7 @@ const UpdateBrand = ({ history, match }) => {
             <Button
               id="createProductBtn"
               type="submit"
-              disabled={loading ? true : false}
-            >
+              disabled={loading ? true : false}>
               Update
             </Button>
           </form>
