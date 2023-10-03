@@ -5,6 +5,7 @@
   <meta charset="utf-8" />
   <script src="https://kit.fontawesome.com/730da2c8ca.js" crossorigin="anonymous"
     integrity="sha384-randomhashhere"></script>
+    <!-- Missing Anti-clickjacking Header -->
   <script>
     if (top != window) {
       top.location = window.location;
@@ -18,9 +19,10 @@
 
   <link rel="manifest" href="%PUBLIC_URL%/manifest.json" />
 
+  <!-- Content Security Policy (CSP) Header Not Set (Malicious scripts might attempt to load images from unauthorized sources as part of an attack.) --> 
   <meta http-equiv="Content-Security-Policy" content="img-src 'self' https://res.cloudinary.com" />
   
-
+  
   <title>Choco</title>
 </head>
 
