@@ -12,7 +12,7 @@ import { saveShippingInfo } from "../../actions/CartAction";
 import BottomTab from "../../more/BottomTab";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-
+import { SanitizeText } from "../../sanitizer/Sanitizer";
 const Shipping = ({ history }) => {
   const dispatch = useDispatch();
 
@@ -49,8 +49,7 @@ const Shipping = ({ history }) => {
           <form
             className="shippingForm"
             encType="multipart/form-data"
-            onSubmit={shippingSubmit}
-          >
+            onSubmit={shippingSubmit}>
             <div>
               <HomeIcon />
               <input
@@ -58,7 +57,7 @@ const Shipping = ({ history }) => {
                 placeholder="Address"
                 required
                 value={address}
-                onChange={(e) => setAddress(e.target.value)}
+                onChange={(e) => setAddress(SanitizeText(e.target.value))}
               />
             </div>
 
@@ -80,8 +79,7 @@ const Shipping = ({ history }) => {
               <select
                 required
                 value={country}
-                onChange={(e) => setCountry(e.target.value)}
-              >
+                onChange={(e) => setCountry(e.target.value)}>
                 <option value="">Country</option>
                 {Country &&
                   Country.getAllCountries().map((item) => (
@@ -99,8 +97,7 @@ const Shipping = ({ history }) => {
                 <select
                   required
                   value={state}
-                  onChange={(e) => setState(e.target.value)}
-                >
+                  onChange={(e) => setState(e.target.value)}>
                   <option value="">City</option>
                   {State &&
                     State.getStatesOfCountry(country).map((item) => (

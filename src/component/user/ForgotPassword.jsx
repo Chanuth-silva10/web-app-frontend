@@ -4,76 +4,76 @@ import Loading from "../../more/Loader";
 import MailOutlineIcon from "@material-ui/icons/MailOutline";
 import { useDispatch, useSelector } from "react-redux";
 import { clearErrors, forgotPassword } from "../../actions/userAction";
-import { ToastContainer, toast } from 'react-toastify';
+import { ToastContainer, toast } from "react-toastify";
 import MetaData from "../../more/Metadata";
+import { SanitizeText } from "../../sanitizer/Sanitizer";
 
-const  ForgotPassword = () => {
-    const dispatch = useDispatch();
-  
-    const { error, message, loading } = useSelector(
-      (state) => state.forgotPassword
-    );
-  
-    const [email, setEmail] = useState("");
-  
-    const forgotPasswordSubmit = (e) => {
-      e.preventDefault();
-  
-      const myForm = new FormData();
-  
-      myForm.set("email", email);
-      dispatch(forgotPassword(myForm));
-    };
-  
-    useEffect(() => {
-      if (error) {
-        toast.error(error);
-        dispatch(clearErrors());
-      }
-  
-      if (message) {
-        toast.success(message);
-      }
-    }, [dispatch, error, message]);
-  
-    return (
-      <Fragment>
-        {loading ? (
-          <Loading />
-        ) : (
-          <Fragment>
-            <MetaData title="Forgot Password" />
-            <div className="forgotPasswordContainer">
-              <div className="forgotPasswordBox">
-                <h2 className="forgotPasswordHeading">Forgot Password</h2>
-  
-                <form
-                  className="forgotPasswordForm"
-                  onSubmit={forgotPasswordSubmit}
-                >
-                  <div className="forgotPasswordEmail">
-                    <MailOutlineIcon />
-                    <input
-                      type="email"
-                      placeholder="Email"
-                      required
-                      name="email"
-                      value={email}
-                      onChange={(e) => setEmail(e.target.value)}
-                    />
-                  </div>
-  
+const ForgotPassword = () => {
+  const dispatch = useDispatch();
+
+  const { error, message, loading } = useSelector(
+    (state) => state.forgotPassword
+  );
+
+  const [email, setEmail] = useState("");
+
+  const forgotPasswordSubmit = (e) => {
+    e.preventDefault();
+
+    const myForm = new FormData();
+
+    myForm.set("email", email);
+    dispatch(forgotPassword(myForm));
+  };
+
+  useEffect(() => {
+    if (error) {
+      toast.error(error);
+      dispatch(clearErrors());
+    }
+
+    if (message) {
+      toast.success(message);
+    }
+  }, [dispatch, error, message]);
+
+  return (
+    <Fragment>
+      {loading ? (
+        <Loading />
+      ) : (
+        <Fragment>
+          <MetaData title="Forgot Password" />
+          <div className="forgotPasswordContainer">
+            <div className="forgotPasswordBox">
+              <h2 className="forgotPasswordHeading">Forgot Password</h2>
+
+              <form
+                className="forgotPasswordForm"
+                onSubmit={forgotPasswordSubmit}>
+                <div className="forgotPasswordEmail">
+                  <MailOutlineIcon />
                   <input
-                    type="submit"
-                    value="Send"
-                    className="forgotPasswordBtn"
+                    type="email"
+                    placeholder="Email"
+                    required
+                    name="email"
+                    value={email}
+                    onChange={(e) => setEmail(SanitizeText(e.target.value))}
                   />
-                </form>
-              </div>
+                </div>
+
+                <input
+                  type="submit"
+                  value="Send"
+                  className="forgotPasswordBtn"
+                />
+              </form>
             </div>
-          </Fragment>
-        )}
-         <ToastContainer 
+          </div>
+        </Fragment>
+      )}
+      <ToastContainer
         position="bottom-center"
         autoClose={5000}
         hideProgressBar={false}
@@ -83,9 +83,9 @@ const  ForgotPassword = () => {
         pauseOnFocusLoss
         draggable
         pauseOnHover
-        />
-      </Fragment>
-    );
-  };
+      />
+    </Fragment>
+  );
+};
 
-export default ForgotPassword
+export default ForgotPassword;

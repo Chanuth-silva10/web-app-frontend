@@ -16,7 +16,7 @@ import AttachMoneyIcon from "@material-ui/icons/AttachMoney";
 import SideBar from "./Sidebar";
 import { UPDATE_CATEGORY_RESET } from "../../constans/CategoryConstans";
 import { ToastContainer, toast } from "react-toastify";
-
+import { SanitizeText } from "../../sanitizer/Sanitizer";
 const UpdateCategory = ({ history, match }) => {
   const dispatch = useDispatch();
 
@@ -115,8 +115,7 @@ const UpdateCategory = ({ history, match }) => {
           <form
             className="createProductForm"
             encType="multipart/form-data"
-            onSubmit={updateProductSubmitHandler}
-          >
+            onSubmit={updateProductSubmitHandler}>
             <h1>Edit Category</h1>
 
             <div>
@@ -126,7 +125,7 @@ const UpdateCategory = ({ history, match }) => {
                 placeholder="Category Name"
                 required
                 value={name}
-                onChange={(e) => setName(e.target.value)}
+                onChange={(e) => setName(SanitizeText(e.target.value))}
               />
             </div>
 
@@ -138,8 +137,7 @@ const UpdateCategory = ({ history, match }) => {
                 value={description}
                 onChange={(e) => setDescription(e.target.value)}
                 cols="30"
-                rows="1"
-              ></textarea>
+                rows="1"></textarea>
             </div>
 
             <div id="createProductFormFile">
@@ -168,8 +166,7 @@ const UpdateCategory = ({ history, match }) => {
             <Button
               id="createProductBtn"
               type="submit"
-              disabled={loading ? true : false}
-            >
+              disabled={loading ? true : false}>
               Update
             </Button>
           </form>

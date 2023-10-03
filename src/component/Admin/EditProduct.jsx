@@ -16,6 +16,7 @@ import AttachMoneyIcon from "@material-ui/icons/AttachMoney";
 import SideBar from "./Sidebar";
 import { UPDATE_PRODUCT_RESET } from "../../constans/ProductConstans";
 import { ToastContainer, toast } from "react-toastify";
+import { SanitizeText } from "../../sanitizer/Sanitizer";
 
 const UpdateProduct = ({ history, match }) => {
   const dispatch = useDispatch();
@@ -125,8 +126,7 @@ const UpdateProduct = ({ history, match }) => {
           <form
             className="createProductForm"
             encType="multipart/form-data"
-            onSubmit={updateProductSubmitHandler}
-          >
+            onSubmit={updateProductSubmitHandler}>
             <h1>Edit Product</h1>
 
             <div>
@@ -136,7 +136,7 @@ const UpdateProduct = ({ history, match }) => {
                 placeholder="Product Name"
                 required
                 value={name}
-                onChange={(e) => setName(e.target.value)}
+                onChange={(e) => setName(SanitizeText(e.target.value))}
               />
             </div>
             <div>
@@ -158,16 +158,14 @@ const UpdateProduct = ({ history, match }) => {
                 value={description}
                 onChange={(e) => setDescription(e.target.value)}
                 cols="30"
-                rows="1"
-              ></textarea>
+                rows="1"></textarea>
             </div>
 
             <div>
               <AccountTreeIcon />
               <select
                 value={category}
-                onChange={(e) => setCategory(e.target.value)}
-              >
+                onChange={(e) => setCategory(e.target.value)}>
                 <option value="">Choose Category</option>
                 {categories.map((cate) => (
                   <option key={cate} value={cate}>
@@ -214,8 +212,7 @@ const UpdateProduct = ({ history, match }) => {
             <Button
               id="createProductBtn"
               type="submit"
-              disabled={loading ? true : false}
-            >
+              disabled={loading ? true : false}>
               Update
             </Button>
           </form>

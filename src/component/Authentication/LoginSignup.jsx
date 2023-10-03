@@ -8,6 +8,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { clearErrors, login, register } from "../../actions/userAction";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { SanitizeText } from "../../sanitizer/Sanitizer";
 
 const LoginSignup = ({ history, location }) => {
   const dispatch = useDispatch();
@@ -15,7 +16,7 @@ const LoginSignup = ({ history, location }) => {
   const { error, loading, isAuthenticated } = useSelector(
     (state) => state.user
   );
-console.log("login "+isAuthenticated)
+  console.log("login " + isAuthenticated);
   const [loginEmail, setLoginEmail] = useState("");
   const [loginPassword, setLoginPassword] = useState("");
 
@@ -64,7 +65,7 @@ console.log("login "+isAuthenticated)
 
       reader.readAsDataURL(e.target.files[0]);
     } else {
-      setUser({ ...user, [e.target.name]: e.target.value });
+      setUser({ ...user, [e.target.name]: SanitizeText(e.target.value) });
     }
   };
 
@@ -116,7 +117,7 @@ console.log("login "+isAuthenticated)
                 placeholder="Email"
                 required
                 value={loginEmail}
-                onChange={(e) => setLoginEmail(e.target.value)}
+                onChange={(e) => setLoginEmail(SanitizeText(e.target.value))}
               />
             </div>
             <div className="loginPassword">
@@ -140,8 +141,7 @@ console.log("login "+isAuthenticated)
             className="signUpForm"
             ref={registerTab}
             encType="multipart/form-data"
-            onSubmit={registerSubmit}
-          >
+            onSubmit={registerSubmit}>
             <div className="signUpName">
               <FaceIcon />
               <input
